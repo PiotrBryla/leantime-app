@@ -2,8 +2,27 @@
 const express = require('express');
 const ejs = require('ejs');
 const path = require('path');
+const mongoose = require('mongoose');
 
-let app = express();
+// Connect to the database
+mongoose.connect('mongodb://localhost/leantime');
+let db = mongoose.connection;
+
+// Check DB connection
+db.once('open', function () {
+    console.log('Connected to the DB ');
+})
+
+//Check for DB errors
+db.on('error', function(err) {
+    console.log(err);
+});
+
+// Initialize application
+const app = express();
+
+// Import DB models
+let User = require('./models/user');
 
 // Set view engine
 app.set ('view engine', 'ejs') ;
@@ -29,7 +48,16 @@ app.get('/' ,function(req, res){
 });
 
 app.get('/dashboard/:name' ,function(req, res){
-    res.render('dashboard', {name: req.params.name});
+    User.find({}, function functionName(err, users) {
+        if(err) {
+            console.log(err);
+        } else {
+            res.render('dashboard', {
+                name: req.params.name,
+                users: users
+            });
+        }
+    });
 });
 
 // Set application port
