@@ -3,6 +3,10 @@ const express = require('express');
 const ejs = require('ejs');
 const path = require('path');
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 // Connect to the database
 mongoose.connect('mongodb://localhost/leantime');
@@ -42,23 +46,51 @@ app.set('views', [
     path.join(__dirname, 'views/timesheets')
 ]);
 
-// Api Calls
+// Session Config
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}));
+
+// Body Parse
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+//  Express Flash messages
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+    res.locals.messages = require('express-messages')(req, res);
+    next();
+});
+
+// Express Validator
+app.use(expressValidator({
+    errorFormatter: function(param, msg, value) {
+        var namespace = param.split('.')
+        , root    = namespace.shift()
+        , formParam = root;
+
+        while(namespace.length) {
+            formParam += '[' + namespace.shift() + ']';
+        }
+        return {
+            param : formParam,
+            msg   : msg,
+            value : value
+        };
+    }
+}));
+
+// Home API Call
 app.get('/' ,function(req, res){
     res.render('index');
 });
 
-app.get('/dashboard/:name' ,function(req, res){
-    User.find({}, function functionName(err, users) {
-        if(err) {
-            console.log(err);
-        } else {
-            res.render('dashboard', {
-                name: req.params.name,
-                users: users
-            });
-        }
-    });
-});
+// Routes
 
+let register = require('./routes/register');
+app.use('/register', register);
 // Set application port
 app.listen(3000);
