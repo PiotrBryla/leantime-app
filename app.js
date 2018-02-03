@@ -1,6 +1,5 @@
 // Import necessary modules
 const express = require('express');
-const ejs = require('ejs');
 const path = require('path');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -17,7 +16,7 @@ db.once('open', function () {
     console.log('Connected to the DB ');
 })
 
-//Check for DB errors
+// Check for DB errors
 db.on('error', function(err) {
     console.log(err);
 });
@@ -29,7 +28,7 @@ const app = express();
 let User = require('./models/user');
 
 // Set view engine
-app.set ('view engine', 'ejs') ;
+app.set ('view engine', 'pug') ;
 
 // Set the static files directories
 app.use('/assets', express.static(__dirname + '/assets'));
@@ -49,9 +48,8 @@ app.set('views', [
 // Session Config
 app.use(session({
     secret: 'keyboard cat',
-    resave: false,
+    resave: true,
     saveUninitialized: true,
-    cookie: { secure: true }
 }));
 
 // Body Parse
@@ -89,8 +87,13 @@ app.get('/' ,function(req, res){
 });
 
 // Routes
-
+// Dashboard User Register
 let register = require('./routes/register');
 app.use('/register', register);
+
+// Dashboard User Login
+let login = require('./routes/login');
+app.use('/login', login);
+
 // Set application port
 app.listen(3000);

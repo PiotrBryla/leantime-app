@@ -8,13 +8,9 @@ const userSchema = mongoose.Schema({
     },
     password:{
         type: String,
-        required: true,
+        required: true
     },
     username:{
-        type: String,
-        required: true,
-    },
-    companyId:{
         type: String,
         required: true
     }

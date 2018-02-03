@@ -1,0 +1,15 @@
+doctype html
+html
+    head
+        title LeanTime
+        link(rel='stylesheet' href="/semantic/assets/semantic.min.css")
+        link(rel='stylesheet' href='/css/style.css')
+    body
+        != messages('message', locals)
+        if errors
+            each error, i in errors
+                .ui.negative.message
+                    .header #{error.msg}
+        block content
+        script(src="/bower_components/jquery/dist/jquery.min.js")
+        script(src="/semantic/assets/semantic.min.js")
