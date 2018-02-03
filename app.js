@@ -6,9 +6,12 @@ const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
+
+const config = require('./config/database');
 
 // Connect to the database
-mongoose.connect('mongodb://localhost/leantime');
+mongoose.connect(config.database);
 let db = mongoose.connection;
 
 // Check DB connection
@@ -80,6 +83,11 @@ app.use(expressValidator({
         };
     }
 }));
+
+// Passport Config
+require('./config/passport')(passport);
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Home API Call
 app.get('/' ,function(req, res){
