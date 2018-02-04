@@ -1,12 +1,25 @@
-extends layout
-
-block content
-    h1 This is login page
-    form.ui.form(method='POST', action='/login')
-        .field
-            label Username
-            input(type='text', name='username', placeholder='Username')
-        .field
-            label Password
-            input(type='password', name='password', placeholder='Password')
-        button.ui.button(type='submit') Login
+doctype html
+html
+    head
+        title LeanTime
+        link(rel='stylesheet' href="/semantic/assets/semantic.min.css")
+        link(rel='stylesheet' href="/assets/css/style.css")
+    body
+        .ui.grid.one.column.stackable.center.aligned.page
+            .column.six.wide.middle.aligned.ui
+                img.small.image(src='/assets/img/logo.svg')
+                .ui.segment
+                    h2.ui.image.header
+                        .content Log-in to your account
+                    form.ui.form(method='POST', action='/login')
+                        .field
+                            label Username
+                            input(type='text', name='username', placeholder='Username')
+                        .field
+                            label Password
+                            input(type='password', name='password', placeholder='Password')
+                        button.ui.button(type='submit') Login
+                    .ui.message New to us?  
+                        a(href='/register') Register
+        script(src="/bower_components/jquery/dist/jquery.min.js")
+        script(src="/semantic/assets/semantic.min.js")

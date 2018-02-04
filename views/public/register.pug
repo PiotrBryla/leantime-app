@@ -1,18 +1,23 @@
 extends layout
 
 block content
-    h1 This is register page
-    form.ui.form(method='POST', action='/register')
-        .field
-            label Username
-            input(type='text', name='username', placeholder='Username')
-        .field
-            label Email
-            input(type='email', name='email', placeholder='Email Address')
-        .field
-            label Password
-            input(type='password', name='password', placeholder='Password')
-        .field
-            label Confirm Password
-            input(type='password', name='password2', placeholder='Confirm Password')
-        button.ui.button(type='submit') Register
+    .row
+        .column
+            .ui.segment
+                h1 This is register page
+                form.ui.form(method='POST', action='/register')
+                    .field
+                        label Username
+                        input(type='text', name='username', placeholder='Username')
+                    .field
+                        label Email
+                        input(type='email', name='email', placeholder='Email Address')
+                    .field
+                        label Password
+                        input(type='password', name='password', placeholder='Password')
+                    .field
+                        label Confirm Password
+                        input(type='password', name='password2', placeholder='Confirm Password')
+                    button.ui.button(type='submit') Register
+    .row
+        .column
