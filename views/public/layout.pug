@@ -8,8 +8,12 @@ html
         .ui.secondary.menu
             img.ui.image.small(src='/assets/img/logo.svg')
             .right.menu
-            a.item.ui.basic.button.blue.small(href='/register') Register
-            a.item.ui.basic.button.blue.small(href='/login')  Sign In
+            if !user
+                a.item.ui.basic.button.blue.small(href='/register') Register
+            if !user    
+                a.item.ui.basic.button.blue.small(href='/login')  Sign In
+            if user    
+                a.item.ui.basic.button.blue.small(href='/logout')  Logout
     .ui.container
         != messages('message', locals)
         if errors

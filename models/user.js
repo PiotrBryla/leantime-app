@@ -13,6 +13,14 @@ const userSchema = mongoose.Schema({
     username:{
         type: String,
         required: true
+    },
+    role: {
+        type: String,
+        required: true
+    },
+    companyId: {
+        type: String,
+        required: true
     }
 });
 

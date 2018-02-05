@@ -29,6 +29,7 @@ const app = express();
 
 // Import DB models
 let User = require('./models/user');
+let Company = require('./models/company');
 
 // Set view engine
 app.set ('view engine', 'pug') ;
@@ -89,6 +90,23 @@ require('./config/passport')(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Global User  and Company Variable
+app.get('*', function(req, res, next) {
+    res.locals.user = req.user || null;
+
+    if(req.user) {
+        let companyId = res.locals.user.companyId ;
+
+        Company.findById( companyId , function(error, result) {
+            res.locals.company = result;
+        }).then(function () {
+            next();
+        });
+    }else {
+        next();
+    }
+});
+
 // Home API Call
 app.get('/' ,function(req, res){
     res.render('index');
@@ -102,6 +120,10 @@ app.use('/register', register);
 // Dashboard User Login
 let login = require('./routes/login');
 app.use('/login', login);
+
+// Dashboard User Logout
+let logout = require('./routes/logout');
+app.use('/logout', logout);
 
 // Set application port
 app.listen(3000);

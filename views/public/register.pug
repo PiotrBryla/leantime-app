@@ -4,8 +4,14 @@ block content
     .row
         .column
             .ui.segment
-                h1 This is register page
                 form.ui.form(method='POST', action='/register')
+                    .field
+                        label Company
+                        input(type='text', name='company', placeholder='Company Name')
+                    .field
+                        label Comapny Email
+                        input(type='email', name='companyemail', placeholder='Company Email Address')
+                    .ui.divider
                     .field
                         label Username
                         input(type='text', name='username', placeholder='Username')

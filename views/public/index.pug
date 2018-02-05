@@ -1,4 +1,6 @@
 extends layout
 
 block content
-    h1 This is index page
+    if user
+        h1 #{user.username}
+        h1 company: #{company.name}
