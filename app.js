@@ -42,11 +42,13 @@ app.use('/bower_components', express.static(__dirname + '/bower_components'));
 // Set views repositories
 app.set('views', [
     path.join(__dirname, 'views'),
+    path.join(__dirname, 'views/departaments'),
+    path.join(__dirname, 'views/dashboard'),
     path.join(__dirname, 'views/employees/'),
     path.join(__dirname, 'views/logs/'),
     path.join(__dirname, 'views/public/'),
+    path.join(__dirname, 'views/reports/'),
     path.join(__dirname, 'views/settings/'),
-    path.join(__dirname, 'views/timesheets')
 ]);
 
 // Session Config
@@ -116,6 +118,30 @@ app.get('/' ,function(req, res){
 // Dashboard User Register
 let register = require('./routes/register');
 app.use('/register', register);
+
+// Company logs
+let logs = require('./routes/logs');
+app.use('/logs', logs);
+
+// Company Dashboard
+let dashboard = require('./routes/dashboard');
+app.use('/dashboard', dashboard);
+
+// Company Dashboard
+let employees = require('./routes/employees');
+app.use('/employees', employees);
+
+// Company Dashboard
+let reports = require('./routes/reports');
+app.use('/reports', reports);
+
+// Company Dashboard
+let settings = require('./routes/settings');
+app.use('/settings', settings);
+
+// Company Departaments
+let departaments = require('./routes/departaments');
+app.use('/departaments', departaments);
 
 // Dashboard User Login
 let login = require('./routes/login');

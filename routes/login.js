@@ -14,7 +14,7 @@ router.get('/' ,function(req, res){
 // Logging Process
 router.post('/', function(req, res, next){
     passport.authenticate('local', {
-        successRedirect:'/',
+        successRedirect:'/dashboard',
         failureRedirect:'/login',
         failureFlash: true
     })(req, res, next);
