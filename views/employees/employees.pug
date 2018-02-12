@@ -10,16 +10,22 @@ block content
                 | QR Code Here
             .description
                 .ui.header Emplyee details Emplyee details Emplyee details Emplyee details Emplyee details Emplyee details Emplyee details
-                form.ui.form(method="post" action="/emplyees/add" id="addForm")
-                    .field
-                        label Department:
-                        input(type="text" name="departamentName" id="departament_name")
+                form.ui.form(method="post", action="/emplyees/add", id="addForm")
                     .field
                         label First Name
-                        input(type="text")
+                        input(type="text", name="firstName")
                     .field
                         label Last Name
-                        input(type="text")
+                        input(type="text", name="lastName" )
+                    .field
+                        label Department:
+                        .ui.fluid.search.selection.dropdown
+                            input(type="hidden", name="department")
+                            i.dropdown.icon
+                            .default.text Select Departament
+                            .menu
+                                each val in company.departaments
+                                    .item(data-value="" + val._id) #{val.name}
                     
                     input.ui.hidden(type="text" name="companyId" id="company_id" style="display: none;")    
         .actions
@@ -51,7 +57,9 @@ block content
                     td.center.aligned
                         button.ui.button More
     script.
-        $(function () {
+        $(function () {            
+            $('.ui.dropdown').dropdown();
+            
             $("#modalOpener").click(function(){
         		$(".ui.modal").modal('show');
         	});

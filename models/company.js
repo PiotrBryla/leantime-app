@@ -1,4 +1,7 @@
 const mongoose = require('mongoose');
+const employeeModel = require('./employee');
+
+
 
 // Company Schema
 const companySchema = mongoose.Schema({
@@ -10,7 +13,10 @@ const companySchema = mongoose.Schema({
         type: String,
         required: true
     },
-    departaments: [{name: String}]
+    departaments: [
+        {
+            name: String
+        }]
 });
 
 const Company = module.exports = mongoose.model('Company', companySchema);
