@@ -3,53 +3,59 @@ html
     head
         title LeanTime
         link(rel='stylesheet' href="/semantic/assets/semantic.min.css")
-    body
-    .ui.container
-        .ui.secondary.menu
-            img.ui.image.tiny(src='/assets/img/logo.svg')
-            .right.menu
-                if !user
-                    a.item.ui.basic.button.blue.small(href='/register') Register
-                if !user    
-                    a.item.ui.basic.button.blue.small(href='/login')  Sign In
-                if user    
-                    a.item.ui.basic.button.blue.small(href='/logout')  Logout    
-    .ui.container
-        if user
-            p #{company.name} Logged-in as #{user.username}
-        != messages('message', locals)
-        if errors
-            each error, i in errors
-                .ui.negative.message
-                    .header #{error.msg}
-        if user
-            .ui.menu.six.item.stackable
-                a.item(href="/dashboard") Dashboard
-                a.item(href="/logs") Logs
-                a.item(href="/employees") Employees
-                a.item(href="/departaments") Departaments
-                a.item(href="/reports") Reports
-                a.item(href="/settings") Account Settings
-        block content
-    .ui.divider
-    .ui.inverted.vertical.footer.segment.row
-        .ui.container
-            .ui.stackable.inverted.divided.equal.height.stackable.grid
-                .three.wide.column
-                    h4.ui.inverted.header About
-                        .ui.inverted.link.list
-                            a.item Sitemap
-                            a.item Contact Us
-                            a.item Sitemap
-                            a.item Sitemap                        
-                .three.wide.column
-                    h4.ui.inverted.header Services
-                        .ui.inverted.link.list
-                            a.item Banana Pre-Order
-                            a.item Banana Pre-Order
-                            a.item Banana Pre-Order
-                .seven.wide.column
-                    h4.ui.inverted.header Footer Header
-                        p Extra space for a call to action inside the footer that could help re-engage users.
+        link(rel='stylesheet' href="/assets/css/style.css")
         script(src="/bower_components/jquery/dist/jquery.min.js")
+    body.site
+    main.site-content
+        .ui.container
+            .ui.secondary.menu
+                .item
+                    img.ui.image.logo(src='/assets/img/logo.svg')
+                .right.menu
+                    if !user
+                        a.item.ui.basic.button.blue.small(href='/register') Register
+                    if !user    
+                        a.item.ui.basic.button.blue.small(href='/login')  Sign In
+                    if user    
+                        a.item.ui.basic.button.blue.small(href='/logout')  Logout    
+        .ui.container
+            if user
+                p #{company.name} Logged-in as #{user.username}
+            != messages('message', locals)
+            if errors
+                each error, i in errors
+                    .ui.negative.message
+                        .header #{error.msg}
+            if user
+                .ui.menu.six.item.stackable
+                    a.item(href="/dashboard") Dashboard
+                    a.item(href="/logs") Logs
+                    a.item(href="/employees") Employees
+                    a.item(href="/departaments") Departaments
+                    a.item(href="/reports") Reports
+                    a.item(href="/settings") Account Settings
+            block content
+    footer
+        .ui.divider
+        .ui.inverted.vertical.footer.segment.row
+            .ui.container
+                .ui.stackable.inverted.divided.equal.height.stackable.grid
+                    .three.wide.column
+                        h4.ui.inverted.header About
+                            .ui.inverted.link.list
+                                a.item Sitemap
+                                a.item Contact Us
+                                a.item Sitemap
+                                a.item Sitemap                        
+                    .three.wide.column
+                        h4.ui.inverted.header Services
+                            .ui.inverted.link.list
+                                a.item Banana Pre-Order
+                                a.item Banana Pre-Order
+                                a.item Banana Pre-Order
+                    .seven.wide.column
+                        h4.ui.inverted.header Footer Header
+                            p Extra space for a call to action inside the footer that could help re-engage users.
         script(src="/semantic/assets/semantic.min.js")
+
+        

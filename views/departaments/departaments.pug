@@ -1,17 +1,40 @@
 extends ../public/layout
 
 block content
+    .ui.modal
+        i.close.icon
+        .header
+            | New Departament
+        .content
+            form.ui.form(method="post" action="/departaments/add" id="addForm")
+                .field
+                    label Department Name:
+                    input(type="text" name="departamentName" id="departament_name")    
+                    input.ui.hidden(type="text" name="companyId" id="company_id" style="display: none;")    
+        .actions
+            .ui.cancel.button Cancel
+            .ui.button(id="addButton") Add
+        
     .ui.segment.clearing
         h2 #{company.name}'s departaments:
-            button.ui.button.right.floated New
+        
+            button.ui.button.right.floated(id="modalOpener") New
         .ui.relaxed.divided.list
-            .item
-                i.large.columns.middle.aligned.icon
-                .content
-                    a.header Department name
-                    .description Number of emplyees
-            .item
-                i.large.github.middle.aligned.icon
-                .content
-                    a.header Department name
-                    .description Number of emplyees
+            each val in company.departaments
+                .item
+                    i.large.columns.middle.aligned.icon
+                    .content
+                        a.header #{val.name}
+                        .description Number of emplyees
+    script.
+        $(function () {
+            $("#modalOpener").click(function(){
+        		$(".ui.modal").modal('show');
+        	});
+            
+            $("#addButton").click(function() {
+                $("#company_id").val("#{company._id}");
+                $("#addForm").submit();
+            })
+        });
+    

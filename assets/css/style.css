@@ -5,3 +5,18 @@ html, body {
 .ui.grid {
     height: 100%;
 }
+
+.site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.site-content {
+  flex: 1;
+}
+
+.logo {
+    width: 150px;
+    height: 21px;
+}

@@ -9,7 +9,8 @@ const companySchema = mongoose.Schema({
     email:{
         type: String,
         required: true
-    }
+    },
+    departaments: [{name: String}]
 });
 
 const Company = module.exports = mongoose.model('Company', companySchema);
