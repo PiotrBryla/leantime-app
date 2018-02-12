@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('./auth');
 
 //Models
 const Company = require('../models/company.js');
 
-router.get('/' ,function(req, res){
+router.get('/', auth , function(req, res){
     res.render('departaments');
 });
 
-router.post('/add' ,function(req, res){
+router.post('/add', auth, function(req, res){
     const departamentName = req.body.departamentName;
     const companyId = req.body.companyId;
 
@@ -34,8 +35,6 @@ router.post('/add' ,function(req, res){
                 }
             })
     }
-
 });
-
 
 module.exports = router;
