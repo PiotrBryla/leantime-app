@@ -99,11 +99,19 @@ app.get('*', function(req, res, next) {
     if(req.user) {
         let companyId = res.locals.user.companyId ;
 
-        Company.findById( companyId , function(error, result) {
-            res.locals.company = result;
-        }).then(function () {
-            next();
+        Company.findOne({_id: companyId})
+        .populate('departaments')
+        .populate({
+            path: 'employees',
+            populate: {path: 'departament'}
+        })
+        .exec(function (err, company) {
+             if (err) return handleError(err);
+               res.locals.company = company;
+               console.log(company);
+               next();
         });
+
     }else {
         next();
     }

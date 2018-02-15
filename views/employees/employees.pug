@@ -10,7 +10,7 @@ block content
                 | QR Code Here
             .description
                 .ui.header Emplyee details Emplyee details Emplyee details Emplyee details Emplyee details Emplyee details Emplyee details
-                form.ui.form(method="post", action="/emplyees/add", id="addForm")
+                form.ui.form(method="post", action="/employees/add", id="addForm")
                     .field
                         label First Name
                         input(type="text", name="firstName")
@@ -20,7 +20,7 @@ block content
                     .field
                         label Department:
                         .ui.fluid.search.selection.dropdown
-                            input(type="hidden", name="department")
+                            input(type="hidden", name="departament")
                             i.dropdown.icon
                             .default.text Select Departament
                             .menu
@@ -42,20 +42,21 @@ block content
                     th Status
                     th Details
             tbody
-                tr
-                    td
-                        h4.ui.header
-                            i.mini.user.outline.middle.aligned.icon
-                            .content
-                                | Name
-                                .sub.header
-                                | Department
-                    td
-                        | Today: 4 | This Week: 21 | This Month: 122 | Total: 2211  
-                    td.center.aligned
-                        | Absent
-                    td.center.aligned
-                        button.ui.button More
+                each val in company.employees 
+                    tr
+                        td
+                            h4.ui.header
+                                i.mini.user.outline.middle.aligned.icon
+                                .content
+                                    |#{val.firstName} #{val.lastName}
+                                    .sub.header
+                                    | #{val.departament.name}
+                        td
+                            | Today: 4 | This Week: 21 | This Month: 122 | Total: 2211  
+                        td.center.aligned
+                            | Absent
+                        td.center.aligned
+                            button.ui.button More
     script.
         $(function () {            
             $('.ui.dropdown').dropdown();
