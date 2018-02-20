@@ -2,17 +2,13 @@ const mongoose = require('mongoose');
 
 // Emplyee Log Schema
 const logSchema = mongoose.Schema({
-    employeeId:{
-        type: String,
-        required: true
-    },
-    timestamp:{
-        type: String,
-        required: true
-    },
-    type:{
+    time: {
         type: timestamp,
-        required: true;
+        required: true
+    },
+    event: {
+        trype: String,
+        required: true
     }
 });
 

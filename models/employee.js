@@ -12,9 +12,13 @@ const employeeSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    departament:{
+    departament: {
         type: Schema.Types.ObjectId,
         ref: 'Departament'
-    }
+    },
+    logs: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Log'
+    }]
 });
 const employee = module.exports = mongoose.model('Employee', employeeSchema);
