@@ -26,24 +26,22 @@ router.post('/', function(req, res){
     if(errors){
         responseJson = errors;
     } else {
-        // Create new Log object
-        const punchType = "Punch";
-
-        var newLog = new Log({
-            _id: new mongoose.Types.ObjectId(),
-            time: Date.now(),
-            event: punchType
-        });
-
-        // Save new log to the db
-        newLog.save(function(err) {
-            // TODO: Error handling
-            if(err) console.log(err);
-
-            // Update employee logs record
 
             Employee.findOne({_id: employeeId}, function(err, em) {
                 var currentEmpolyeeStatus = em.present;
+
+                var newLog = new Log({
+                    _id: new mongoose.Types.ObjectId(),
+                    time: Date.now(),
+                    event: !currentEmpolyeeStatus
+                });
+
+                // Save new log to the db
+                newLog.save(function(err) {
+                    // TODO: Error handling
+                    if(err) console.log(err);
+
+                    // Update employee logs record
 
                 Employee.update(
                     {_id: employeeId },

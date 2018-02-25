@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const logSchema = mongoose.Schema({
      _id: Schema.Types.ObjectId,
-    event: String,
+    event: Boolean,
     time: Date
 });
 
