@@ -1,15 +1,11 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-// Emplyee Log Schema
 const logSchema = mongoose.Schema({
-    time: {
-        type: timestamp,
-        required: true
-    },
-    event: {
-        trype: String,
-        required: true
-    }
+     _id: Schema.Types.ObjectId,
+    event: String,
+    time: Date
 });
+
 
 const Log = module.exports = mongoose.model('Log', logSchema);

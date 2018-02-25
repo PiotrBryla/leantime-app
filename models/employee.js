@@ -16,6 +16,11 @@ const employeeSchema = mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'Departament'
     },
+    present: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
     logs: [{
         type: Schema.Types.ObjectId,
         ref: 'Log'
