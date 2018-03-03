@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
+const mongoose = require('mongoose');
 
 // Import User Model
 const User = require('../models/user.js');
@@ -37,6 +38,7 @@ router.post('/', function(req,res) {
     } else {
 
         let newCompany = new Company({
+            _id: new mongoose.Types.ObjectId(),
             name: companyName,
             email: companyEmail
         });

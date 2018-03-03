@@ -31,6 +31,7 @@ router.post('/add', auth, function(req, res){
 
         var newEmployee = new Employee({
             _id: new mongoose.Types.ObjectId(),
+            company: companyId,
             firstName: firstName,
             lastName: lastName,
             departament: departament

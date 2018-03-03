@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 // Company Schema
 const companySchema = mongoose.Schema({
+    _id: Schema.Types.ObjectId,
     name:{
         type: String,
         required: true

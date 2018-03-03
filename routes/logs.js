@@ -7,7 +7,18 @@ const Employee = require('../models/employee');
 const Log = require('../models/log');
 
 router.get('/', auth, function(req, res){
-    res.render('logs');
+
+    Log.find({})
+    .populate('employee')
+    .populate({
+            path: 'employee',
+            populate: {path: 'departament'}
+        })
+    .sort({time: -1})
+    .exec(function(err, logs) {
+        res.render('logs', {logs: logs});
+    })
+
 });
 
 // TODO: Permission startegy needs to be implemented
@@ -33,7 +44,8 @@ router.post('/', function(req, res){
                 var newLog = new Log({
                     _id: new mongoose.Types.ObjectId(),
                     time: Date.now(),
-                    event: !currentEmpolyeeStatus
+                    event: !currentEmpolyeeStatus,
+                    employee: employeeId
                 });
 
                 // Save new log to the db
