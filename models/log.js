@@ -8,7 +8,8 @@ const logSchema = mongoose.Schema({
     time: Date,
     employee: {
         type: Schema.Types.ObjectId,
-        ref: "Employee"}
+        ref: "Employee"},
+    companyId: Schema.Types.ObjectId
     });
 
 

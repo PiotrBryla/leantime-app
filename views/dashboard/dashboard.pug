@@ -1,18 +1,17 @@
 extends ../public/layout
 
 block content
-    .ui.segment.clearing
-        h2 #{company.name}'s Dashboard:
-        .ui.two.column.grid
-            .column
-                .ui.raised.segment
-                    a.ui.green.ribbon.label Present
-                    span Emplyees:
-                    each val in present
-                        p #{val.firstName}
-            .column
-                .ui.segment
-                    a.ui.red.right.ribbon.label Absent
-                    span Emplyees:
-                    each val in absent
-                        p #{val.firstName}
+    h2 #{company.name}'s Dashboard:
+    .ui.two.column.grid
+        .column
+            .ui.raised.segment
+                a.ui.green.ribbon.label Present
+                span Employees:
+                each val in present
+                    p #{val.firstName} #{val.lastName}
+        .column
+            .ui.segment
+                a.ui.red.right.ribbon.label Absent
+                span Employees:
+                each val in absent
+                    p #{val.firstName}

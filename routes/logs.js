@@ -3,22 +3,26 @@ const mongoose = require('mongoose');
 const router = express.Router();
 const auth = require('./auth');
 
+const Company = require('../models/company');
 const Employee = require('../models/employee');
 const Log = require('../models/log');
 
 router.get('/', auth, function(req, res){
 
-    Log.find({})
-    .populate('employee')
-    .populate({
-            path: 'employee',
-            populate: {path: 'departament'}
-        })
-    .sort({time: -1})
-    .exec(function(err, logs) {
-        res.render('logs', {logs: logs});
-    })
+    if(req.user) {
+        let companyId = res.locals.user.companyId ;
 
+        Log.find({companyId: companyId})
+        .populate('employee')
+        .populate({
+                path: 'employee',
+                populate: {path: 'departament'},
+            })
+        .sort({time: -1})
+        .exec(function(err, logs) {
+            res.render('logs', {logs: logs});
+        })
+}
 });
 
 // TODO: Permission startegy needs to be implemented
@@ -27,6 +31,7 @@ router.post('/', function(req, res){
 
     // POST variables
     const employeeId = req.body.employeeId;
+    const companyId = req.body.companyId;
 
     // POST variables validation
     req.checkBody('employeeId', 'Wrong Employee ID!').notEmpty();
@@ -45,7 +50,8 @@ router.post('/', function(req, res){
                     _id: new mongoose.Types.ObjectId(),
                     time: Date.now(),
                     event: !currentEmpolyeeStatus,
-                    employee: employeeId
+                    employee: employeeId,
+                    companyId: companyId
                 });
 
                 // Save new log to the db
