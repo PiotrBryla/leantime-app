@@ -35,7 +35,7 @@ let Company = require('./models/company');
 app.set ('view engine', 'pug') ;
 
 // Set the static files directories
-app.use('/assets', express.static(__dirname + '/assets'));
+app.use('/dest', express.static(__dirname + '/dest'));
 app.use('/semantic', express.static(__dirname + '/semantic'));
 app.use('/bower_components', express.static(__dirname + '/bower_components'));
 

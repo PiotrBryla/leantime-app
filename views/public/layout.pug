@@ -4,14 +4,14 @@ html
         title LeanTime
         meta(name="viewport" content="width=device-width, initial-scale=1.0")
         link(rel='stylesheet' href="/semantic/assets/semantic.min.css")
-        link(rel='stylesheet' href="/assets/css/style.css")
-        script(src="/bower_components/jquery/dist/jquery.min.js")
+        link(rel='stylesheet' href="/dest/css/style.css")
+        script(src="/dest/js/jquery.min.js")
     body.site
     main.site-content
         .ui.container
             .ui.secondary.menu
                 .item
-                    img.ui.image.logo(src='/assets/img/logo.svg')
+                    img.ui.image.logo(src='/dest/img/logo.svg')
                 .right.menu
                     if !user
                         a.item.ui.basic.button.blue.small(href='/register') Register
@@ -58,5 +58,3 @@ html
                         h4.ui.inverted.header Footer Header
                             p Extra space for a call to action inside the footer that could help re-engage users.
         script(src="/semantic/assets/semantic.min.js")
-
-        

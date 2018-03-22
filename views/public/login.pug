@@ -3,11 +3,11 @@ html
     head
         title LeanTime
         link(rel='stylesheet' href="/semantic/assets/semantic.min.css")
-        link(rel='stylesheet' href="/assets/css/style.css")
+        link(rel='stylesheet' href="/dest/css/style.css")
     body
         .ui.grid.one.column.stackable.center.aligned.page
             .column.six.wide.middle.aligned.ui
-                img.small.image.logo(src='/assets/img/logo.svg')
+                img.small.image.logo(src='/dest/img/logo.svg')
                 != messages('message', locals)
                 if errors
                     each error, i in errors
@@ -26,5 +26,5 @@ html
                         button.ui.button(type='submit') Login
                     .ui.message New to us?  
                         a(href='/register') Register
-        script(src="/bower_components/jquery/dist/jquery.min.js")
+        script(src="/dest/js/jquery.min.js")
         script(src="/semantic/assets/semantic.min.js")
