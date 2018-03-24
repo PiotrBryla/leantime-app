@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const Company = require('../models/company.js');
 const Employee = require('../models/employee.js');
+const Department = require('../models/departament.js');
 
 router.get('/', auth, function(req, res){
     res.render('employees');
@@ -47,8 +48,20 @@ router.post('/add', auth, function(req, res){
                         req.flash('negative', err);
                     }
                     else{
-                        req.flash('positive', 'New employee has been added successfully');
-                        res.redirect('/employees');
+
+                        Department.findOne({_id: newEmployee.departament}, function(err, eDepartament){
+                            if (err) return handleError(err);
+
+                            res.json({
+                                'message': 'New employee has been added successfully',
+                                'employee': {
+                                    'firstName': newEmployee.firstName,
+                                    'lastName': newEmployee.lastName,
+                                    'departament': eDepartament.name,
+                                    'employeeID': newEmployee._id
+                                }
+                            });
+                        })
                     }
                 });
         });

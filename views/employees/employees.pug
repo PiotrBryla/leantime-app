@@ -1,16 +1,12 @@
 extends ../public/layout
 
 block content
-    .ui.modal
+    .ui.modal.modal1
         i.close.icon
         .header
-            | New Employee
-        .image.content
-            .ui.medium.image
-                | QR Code Here
             .description
-                .ui.header Emplyee details Emplyee details Emplyee details Emplyee details Emplyee details Emplyee details Emplyee details
-                form.ui.form(method="post", action="/employees/add", id="addForm")
+                .ui.header Emplyee details
+                form.ui.form(id="addForm")
                     .field
                         label First Name
                         input(type="text", name="firstName")
@@ -26,11 +22,23 @@ block content
                             .menu
                                 each val in company.departaments
                                     .item(data-value="" + val._id) #{val.name}
-                    
-                    input.ui.hidden(type="text" name="companyId" id="company_id" style="display: none;")    
         .actions
             .ui.cancel.button Cancel
-            .ui.button(id="addButton") Add
+            .ui.button(id="addButton") Next
+    .ui.modal.modal2
+        i.close.icon
+        .header
+            .description
+                .ui.header(id="modal2header")
+                .ui.card
+                    a.image(href='#')
+                        div(id="emplyeeQR")
+                    .content
+                        a.header(id="newEmployeeName") Steve Jobes
+                        .meta
+                            a Last Seen 2 days ago
+        .actions
+            .ui.cancel.button Close
     .ui.segment.clearing
         h2 #{company.name}'s Emplyees:
             button.ui.button.right.floated(id="modalOpener") New
@@ -57,16 +65,41 @@ block content
                             | Absent
                         td.center.aligned
                             button.ui.button More
+    
+block bottomScripts
+    script(src="dest/js/qrcode.js")    
     script.
         $(function () {            
             $('.ui.dropdown').dropdown();
             
             $("#modalOpener").click(function(){
-        		$(".ui.modal").modal('show');
+        		
+        		$(".ui.modal.modal2").modal('attach events','#addButton');
+        		$(".ui.modal.modal1").modal('show');
         	});
             
             $("#addButton").click(function() {
-                $("#company_id").val("#{company._id}");
-                $("#addForm").submit();
+                $.ajax({
+                type: "POST",
+                url: "/employees/add",
+                data: {
+                    "firstName": $("input[name='firstName']").val(),
+                    "companyId": "#{company._id}",
+                    "lastName": $("input[name='lastName']").val(),
+                    "departament": $("input[name='departament']").val()
+                },
+                success: function(data) {
+                    console.log(data);
+                    $("#modal2header").text(data.message);
+                    $("#modal2employee").text(data.employee.firstName);
+                    var typeNumber = 4;
+                    var errorCorrectionLevel = 'L';
+                    var qr = qrcode(typeNumber, errorCorrectionLevel);
+                    qr.addData(data.employee.employeeID)
+                    qr.make()
+                    document.getElementById('emplyeeQR').innerHTML = qr.createImgTag();
+                    
+                }
+                })
             })
         });
