@@ -33,6 +33,8 @@ router.post('/', function(req, res){
     const employeeId = req.body.employeeId;
     const companyId = req.body.companyId;
 
+    console.log('*** employeeid: ' + employeeId);
+
     // POST variables validation
     req.checkBody('employeeId', 'Wrong Employee ID!').notEmpty();
 

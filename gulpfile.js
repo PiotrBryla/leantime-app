@@ -6,7 +6,10 @@ var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 
 
-var sourceFilesJS = [ './node_modules/qrcode-generator/qrcode.js', './node_modules/jquery/dist/jquery.min.js' ];
+var sourceFilesJS = [
+    './node_modules/qrcode-generator/qrcode.js',
+    './node_modules/jquery/dist/jquery.min.js',
+    './node_modules/socket.io-client/dist/socket.io.js'];
 
 gulp.task('copyIMG', function(){
     return gulp.src('assets/img/*')
@@ -27,9 +30,6 @@ gulp.task('css', function(){
 
 gulp.task('js', function(){
   return gulp.src('assets/js/*.js')
-    .pipe(sourcemaps.init())
-    .pipe(concat('app.min.js'))
-    .pipe(sourcemaps.write())
     .pipe(gulp.dest('dest/js'))
 });
 

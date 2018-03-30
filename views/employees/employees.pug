@@ -30,13 +30,13 @@ block content
         .header
             .description
                 .ui.header(id="modal2header")
-                .ui.card
+                .ui.card.centered
                     a.image(href='#')
-                        div(id="emplyeeQR")
+                        div(id="employeeQR")
                     .content
-                        a.header(id="newEmployeeName") Steve Jobes
-                        .meta
-                            a Last Seen 2 days ago
+                        a.header.centered(id="newEmployeeName")
+                        .meta(id="newEmployeeDepartament")
+                            
         .actions
             .ui.cancel.button Close
     .ui.segment.clearing
@@ -89,15 +89,18 @@ block bottomScripts
                     "departament": $("input[name='departament']").val()
                 },
                 success: function(data) {
-                    console.log(data);
+                    
                     $("#modal2header").text(data.message);
-                    $("#modal2employee").text(data.employee.firstName);
+                    $("#modal2employee").text(data.employee.firstName + " " + data.employee.lastName);
+                    $("#newEmployeeName").text(data.employee.firstName + " " + data.employee.lastName);
+                    $("#newEmployeeDepartament").text(data.employee.departament);
+                    
                     var typeNumber = 4;
                     var errorCorrectionLevel = 'L';
                     var qr = qrcode(typeNumber, errorCorrectionLevel);
                     qr.addData(data.employee.employeeID)
                     qr.make()
-                    document.getElementById('emplyeeQR').innerHTML = qr.createImgTag();
+                    document.getElementById('employeeQR').innerHTML = qr.createSvgTag();
                     
                 }
                 })

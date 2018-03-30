@@ -7,6 +7,22 @@ const Employee = require('../models/employee');
 const Log = require('../models/log');
 
 
+// Initialize application
+const app = express();
+
+
+
+// Socket.io Config
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+});
+
 
 router.get('/', auth, function(req, res){
 

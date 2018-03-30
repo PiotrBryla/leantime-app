@@ -26,6 +26,7 @@ db.on('error', function(err) {
 
 // Initialize application
 const app = express();
+var server = require('http').Server(app);
 
 // Import DB models
 let User = require('./models/user');
@@ -61,6 +62,26 @@ app.use(session({
 // Body Parse
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+// Add headers
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:3000');
+
+    // Request methods you wish to allow
+    // res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+    // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    // res.setHeader('Access-Control-Allow-Credentials', true);
+
+    // Pass to next layer of middleware
+    next();
+});
 
 //  Express Flash messages
 app.use(require('connect-flash')());
@@ -119,6 +140,9 @@ app.get('*', function(req, res, next) {
 
 // Home API Call
 app.get('/' ,function(req, res){
+    res.writeHead(200, {
+        'Access-Control-Allow-Origin' : '*'
+    })
     res.render('index');
 });
 
@@ -160,4 +184,6 @@ let logout = require('./routes/logout');
 app.use('/logout', logout);
 
 // Set application port
-app.listen(3000);
+server.listen(3000, function(){
+  console.log('listening on *:3000');
+});
