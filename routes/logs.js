@@ -82,11 +82,21 @@ router.post('/', function(req, res){
                         responseJson = {
                             message: "Punch Accepted !" + newLog.time
                         }
+
+                        var handler = `${em.firstName} ${em.lastName}`;
+
+                        var ioData = {
+                            event: newLog.event,
+                            employee : newLog.employee,
+                            handler: handler
+                        }
+                        req.io.sockets.emit('news', ioData );
                     }
                 });
             });
         });
     }
+
 
     res.header("Content-Type",'application/json');
     res.json(responseJson);

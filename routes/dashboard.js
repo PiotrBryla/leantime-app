@@ -6,28 +6,10 @@ const Company = require('../models/company');
 const Employee = require('../models/employee');
 const Log = require('../models/log');
 
-
-// Initialize application
-const app = express();
-
-
-
-// Socket.io Config
-var server = require('http').Server(app);
-var io = require('socket.io')(server);
-
-io.on('connection', function(socket){
-  console.log('a user connected');
-  socket.on('disconnect', function(){
-    console.log('user disconnected');
-  });
-});
-
-
 router.get('/', auth, function(req, res){
 
     if(req.user) {
-        let companyId = res.locals.user.companyId ;
+        var companyId = res.locals.user.companyId ;
         // Get absent emplyees
         Company.findOne({_id: companyId})
         .populate('departaments')
@@ -55,6 +37,13 @@ router.get('/', auth, function(req, res){
                   res.render('dashboard', {present: presentEmpolyees, absent: absentEmployees});
               });
         });
+
+        var nsp = req.io.of('/dashboard/'+companyId);
+
+        nsp.on('connection', function(socket){
+          console.log('someone connected');
+        });
+
 }
 });
 

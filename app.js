@@ -1,4 +1,4 @@
-// Import necessary modules
+ // Import necessary modules
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
@@ -31,6 +31,23 @@ var server = require('http').Server(app);
 // Import DB models
 let User = require('./models/user');
 let Company = require('./models/company');
+
+// Socket.io Config
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+io.on('connection', function(socket){
+  console.log('a user connected');
+  socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+});
+
+// Make Socket.io accesable in the router
+app.use(function(req,res,next){
+    req.io = io;
+    next();
+});
 
 // Set view engine
 app.set ('view engine', 'pug') ;
@@ -140,9 +157,6 @@ app.get('*', function(req, res, next) {
 
 // Home API Call
 app.get('/' ,function(req, res){
-    res.writeHead(200, {
-        'Access-Control-Allow-Origin' : '*'
-    })
     res.render('index');
 });
 

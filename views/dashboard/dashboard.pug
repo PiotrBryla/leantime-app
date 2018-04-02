@@ -1,5 +1,4 @@
 extends ../public/layout
-
 block content
     h2 #{company.name}'s Dashboard:
     .ui.two.column.grid
@@ -7,13 +6,17 @@ block content
             .ui.raised.segment
                 a.ui.green.ribbon.label Present
                 span Employees:
-                each val in present
-                    p #{val.firstName} #{val.lastName}
+                div(id="present")
+                    each val in present
+                        p(data-id=val._id) #{val.firstName} #{val.lastName}
         .column
             .ui.segment
                 a.ui.red.right.ribbon.label Absent
                 span Employees:
-                each val in absent
-                    p #{val.firstName}
+                div(id="absent")
+                    each val in absent
+                        p(data-id=val._id) #{val.firstName} #{val.lastName}
+    script.
+        companyId = "#{company._id}";
     script(src="dest/js/socket.io.js")
     script(src="dest/js/dashboard.js")
