@@ -90,7 +90,8 @@ router.post('/', function(req, res){
                             employee : newLog.employee,
                             handler: handler
                         }
-                        req.io.sockets.emit('news', ioData );
+                        var nsp = req.io.of('/dashboard/'+companyId);
+                        nsp.emit('news', ioData );
                     }
                 });
             });

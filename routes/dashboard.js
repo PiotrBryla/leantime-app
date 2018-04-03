@@ -41,7 +41,7 @@ router.get('/', auth, function(req, res){
         var nsp = req.io.of('/dashboard/'+companyId);
 
         nsp.on('connection', function(socket){
-          console.log('someone connected');
+          console.log('someone connected to' + nsp.name);
         });
 
 }
