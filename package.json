@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "author": "",
   "license": "ISC",
@@ -31,5 +31,8 @@
     "qrcode-generator": "^1.3.1",
     "semantic-ui": "^2.2.14",
     "socket.io": "^2.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^5.0.5"
   }
 }
