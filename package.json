@@ -2,7 +2,7 @@
   "name": "leantime-express",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "test": "mocha"
   },
@@ -11,7 +11,6 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "connect-flash": "^0.1.1",
-    "ejs": "^2.5.7",
     "express": "^4.16.2",
     "express-messages": "^1.0.1",
     "express-session": "^1.15.6",
@@ -20,10 +19,8 @@
     "gulp-copy": "^1.1.0",
     "gulp-csso": "^3.0.1",
     "gulp-sourcemaps": "^2.6.4",
-    "jsreport": "^1.10.0",
-    "jsreport-core": "^1.5.1",
-    "jsreport-jsrender": "^1.0.2",
-    "jsreport-phantom-pdf": "^1.4.6",
+    "jsreport-client": "^0.4.1",
+    "moment": "^2.22.0",
     "mongoose": "^5.0.2",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",

@@ -3,12 +3,26 @@ const router = express.Router();
 const auth = require('./auth');
 const mongoose = require('mongoose');
 
+const workTime = require('../utils/worktime');
+
 const Company = require('../models/company.js');
 const Employee = require('../models/employee.js');
 const Department = require('../models/departament.js');
 
 router.get('/', auth, function(req, res){
     res.render('employees');
+});
+
+router.get('/:id', auth, function(req, res){
+    // if employee in comany
+    workTime.getWorkingDay(req.params.id, '2018-04-05')
+
+    Employee.findOne({_id: req.params.id})
+    .populate('departament')
+    .exec(function (err, em) {
+         if (err) return handleError(err);
+            res.render('employee', {employee: em});
+    });
 });
 
 router.post('/add', auth, function(req, res){

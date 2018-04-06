@@ -62,9 +62,11 @@ block content
                         td
                             | Today: 4 | This Week: 21 | This Month: 122 | Total: 2211  
                         td.center.aligned
-                            | Absent
+                            -var status = val.present ? "Present" : "Absent";
+                            | #{status}
                         td.center.aligned
-                            button.ui.button More
+                            -var href = '/employees/' + val.id;
+                            a.ui.button(href=href) More
     
 block bottomScripts
     script(src="dest/js/qrcode.js")    

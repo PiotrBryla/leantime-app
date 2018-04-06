@@ -139,7 +139,6 @@ app.get('*', function(req, res, next) {
         .exec(function (err, company) {
              if (err) return handleError(err);
                res.locals.company = company;
-              console.log(company);
                next();
         });
 

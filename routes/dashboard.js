@@ -34,7 +34,12 @@ router.get('/', auth, function(req, res){
                    if (err) return handleError(err);
                     var  presentEmpolyees = company.employees;
 
-                  res.render('dashboard', {present: presentEmpolyees, absent: absentEmployees});
+                  res.render('dashboard', {
+                      present: presentEmpolyees,
+                      absent: absentEmployees,
+                      presentNumber: presentEmpolyees.length,
+                      absentNumber: absentEmployees.length
+                  });
               });
         });
 

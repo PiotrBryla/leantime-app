@@ -24,10 +24,10 @@
 .invoice-box table tr.top table td {
     padding-bottom: 20px;
 }
-.invoice-box table tr.top table td.title {
-    font-size: 45px;
-    line-height: 45px;
-    color: #333;
+.invoice-box table tr.top table td.title svg {
+
+    height: 200px;
+
 }
 .invoice-box table tr.information table td {
     padding-bottom: 40px;

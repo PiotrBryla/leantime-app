@@ -1,15 +1,33 @@
-console.log(companyId);
+var presentNumber = presentNumber;
+var absentNumber = absentNumber;
+
+console.log("present", presentNumber);
+console.log("absent", absentNumber);
+
 var socket = io('/dashboard/'+companyId);
 
 socket.on('news', function (data) {
-  console.log(data);
 
-  $( document ).find("[data-id='" + data.employee + "']").remove();
-
+ // Remove employee from the list
+ $( document ).find("[data-id='" + data.employee + "']").remove();
+// Append to right list
 if(data.event){
-    $('#present').append(`<p data-id="${data.employee}">${data.handler}</p>`)
+    absentNumber --;
+    presentNumber ++;
+    $('#present_employees_number').text(presentNumber);
+    $('#absent_employees_number').text(absentNumber);
+    $('#present').prepend(`<p data-id="${data.employee}">${data.handler}</p>`)
 } else{
-    $('#absent').append(`<p data-id="${data.employee}">${data.handler}</p>`)
+    absentNumber ++;
+    presentNumber --;
+    $('#present_employees_number').text(presentNumber);
+    $('#absent_employees_number').text(absentNumber);
+    $('#absent').prepend(`<p data-id="${data.employee}">${data.handler}</p>`)
 }
 
+})
+//  Document ready
+$(function() {
+    $('#present_employees_number').text(presentNumber);
+    $('#absent_employees_number').text(absentNumber);
 })

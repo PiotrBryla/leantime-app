@@ -1,0 +1,19 @@
+extends ../public/layout
+
+block content
+    .ui.card
+        a.image(href='#')
+            div(id="employeeQR")
+        .content
+            a.header.centered(id="newEmployeeName")
+            .meta(id="newEmployeeDepartament")
+
+block bottomScripts
+    script.
+        var firstName = "!{employee.firstName}";
+        var lastName = "!{employee.lastName}";
+        var departament = "!{employee.departament.name}";
+        var eid = "!{employee._id}";
+
+    script(src="../dest/js/qrcode.js")
+    script(src="../dest/js/employee.js")
