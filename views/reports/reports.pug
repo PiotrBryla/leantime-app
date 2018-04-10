@@ -1,7 +1,72 @@
 extends ../public/layout
 
+block headIncludes
+    script(src="/dest/js/calendar.min.js")
+    link(href="/dest/css/calendar.min.css")
 block content
     .ui.segment.clearing
         h2 #{company.name}'s Reports:
-        a.ui.button(href="reports/report", target="blank") Generate Report
     
+        h3 Employee:
+        .ui.fluid.search.selection.dropdown
+            input(type="hidden", name="employee")
+            i.dropdown.icon
+            .default.text Type employee's name first letters
+            .menu
+                each val in company.employees
+                    .item(data-value="" + val._id) #{val.firstName} #{val.lastName} - #{val.departament.name}
+        .ui.divider
+        h3 1-Day Report
+        .field
+            label Date
+            #one_day_date.ui.calendar
+                .ui.input.left.icon
+                    i.calendar.icon
+                    input(type="text" placeholder="Date")
+                button.ui.button.right.floated(onclick="oneDayReport()") Generate Report
+            .ui.divider
+        h3 Period Report
+        .field
+            label Start date
+            #rangestart.ui.calendar
+                .ui.input.left.icon
+                    i.calendar.icon
+                    input(type="text" placeholder="Start")
+        .field
+            label End date
+            #rangeend.ui.calendar
+                .ui.input.left.icon
+                    i.calendar.icon
+                    input(type="text" placeholder="End")
+                button.ui.button.right.floated(onclick="periodReport()") Generate Report
+        .ui.divider
+block bottomScripts
+    script.
+        function oneDayReport() {
+            console.log($('#one_day_date').calendar('get date'))
+        }
+        
+        function periodReport() {
+                console.log($('#rangestart').calendar('get date'))
+                console.log($('#rangeend').calendar('get date'))
+        }
+    
+        $(function () {            
+            $('.ui.dropdown').dropdown()
+            
+            $('#one_day_date').calendar({
+                type: 'date',
+                inline: false
+            });
+            
+            $('#rangestart').calendar({
+                type: 'date',
+                endCalendar: $('#rangeend')
+            });            
+
+            $('#rangeend').calendar({
+                type: 'date',
+                startCalendar: $('#rangestart')
+            });
+            
+        })

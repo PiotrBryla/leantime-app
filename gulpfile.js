@@ -5,11 +5,15 @@ var minifyCSS = require('gulp-csso');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 
-
 var sourceFilesJS = [
     './node_modules/qrcode-generator/qrcode.js',
     './node_modules/jquery/dist/jquery.min.js',
-    './node_modules/socket.io-client/dist/socket.io.js'];
+    './node_modules/socket.io-client/dist/socket.io.js',
+    './bower_components/semantic-ui-calendar/dist/calendar.min.js'];
+
+var cssLibs = [
+    'bower_components/semantic-ui-calendar/dist/calendar.min.css'
+]
 
 gulp.task('copyIMG', function(){
     return gulp.src('assets/img/*')
@@ -19,6 +23,11 @@ gulp.task('copyIMG', function(){
 gulp.task('copyJS', function(){
   return gulp.src(sourceFilesJS)
      .pipe(gulp.dest('./dest/js/'));
+});
+
+gulp.task('copyCSS', function(){
+  return gulp.src(cssLibs)
+     .pipe(gulp.dest('./dest/css/'));
 });
 
 gulp.task('css', function(){
@@ -33,4 +42,4 @@ gulp.task('js', function(){
     .pipe(gulp.dest('dest/js'))
 });
 
-gulp.task('default', ['css', 'js', 'copyJS', 'copyIMG' ]);
+gulp.task('default', ['css', 'js', 'copyJS', 'copyCSS','copyIMG' ]);

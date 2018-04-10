@@ -15,7 +15,7 @@ router.get('/', auth, function(req, res){
 
 router.get('/:id', auth, function(req, res){
     // if employee in comany
-    workTime.getWorkingDay(req.params.id, '2018-04-05')
+    workTime.getWorkingPeriod(req.params.id, '2018-04-05', '2018-04-07')
 
     Employee.findOne({_id: req.params.id})
     .populate('departament')
